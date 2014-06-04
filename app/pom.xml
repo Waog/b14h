@@ -20,6 +20,26 @@
                     <artifactId>appengine-maven-plugin</artifactId>
                     <version>${appengine.target.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.datanucleus</groupId>
+                    <artifactId>datanucleus-maven-plugin</artifactId>
+                    <version>3.3.0-release</version>
+                    <configuration>
+                        <api>JPA</api>
+                        <persistenceUnitName>MyUnit</persistenceUnitName>
+                        <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
+                        <verbose>true</verbose>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>enhance</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
@@ -28,11 +48,31 @@
         <module>app-ear</module>
     </modules>
     <dependencies>
+        <!-- gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.4</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- PayPal libraries -->
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>paypal-core</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>adaptivepaymentssdk</artifactId>
+            <version>2.6.110</version>
+        </dependency>
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>permissionssdk</artifactId>
+            <version>2.4.109</version>
+        </dependency>
+        <!-- End PayPal libraries -->
+
     </dependencies>
 </project>

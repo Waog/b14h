@@ -7,13 +7,24 @@ http://maven.apache.org/download.cgi
 Build
 -----
 
-    cd b144
+    cd app
     mvn clean install
 
 
 Run dev server
 --------------
 
-    cd b144/app-ear
+    cd app/app-ear
     mvn appengine:devserver
 
+
+Prepopulate data
+----------------
+
+    http://127.0.0.1:8080/api/populate
+    
+ 
+Fetch all tasks
+---------------
+
+    http://127.0.0.1:8080/api/task

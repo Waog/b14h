@@ -3,11 +3,32 @@
 
     <servlet>
         <servlet-name>test</servlet-name>
-        <servlet-class>com.b14h.controllers.test</servlet-class>
+        <servlet-class>com.b14h.controllers.HelloJson</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>populate</servlet-name>
+        <servlet-class>com.b14h.controllers.Populate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>populate</servlet-name>
+        <url-pattern>/api/populate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>task</servlet-name>
+        <servlet-class>com.b14h.controllers.Task</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>task</servlet-name>
+        <url-pattern>/api/task</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
