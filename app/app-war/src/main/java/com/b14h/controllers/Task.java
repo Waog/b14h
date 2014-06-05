@@ -43,7 +43,7 @@ public class Task extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Key key = KeyFactory.stringToKey(req.getParameter("key"));
+        Key key = KeyFactory.stringToKey(req.getParameter("id"));
         String state = req.getParameter("state");
         Entity task = null;
 
@@ -85,7 +85,7 @@ public class Task extends HttpServlet {
      */
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Key key = KeyFactory.stringToKey(req.getParameter("key"));
+        Key key = KeyFactory.stringToKey(req.getParameter("id"));
         datastore.delete(key);
     }
 }
