@@ -2,9 +2,89 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Parent index</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parent app</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
-html/parent/index.html
+
+<!-- navigation header -->
+<div class="navbar navbar-default " role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Parent app</a>
+        </div>
+        <div class="navbar-left">
+            <ul class="nav navbar-nav">
+                <li><a href="/api/populate" >Generate tasks</a></li>
+                <li><a href="#">Authorize paypal</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-2"><b>Key</b></div>
+        <div class="col-xs-7"><b>Title</b></div>
+        <div class="col-xs-1"><b>Credit</b></div>
+        <div class="col-xs-1"><b>State</b></div>
+        <div class="col-xs-1"></div>
+    </div>
+     <hr>
+    <div id="tasksCollection">
+
+    </div>
+
+</div>
+
+
+<script type="text/template" id="taskRow">
+    <div class="row">
+        <div class="col-xs-2"><%= key.id %></div>
+        <div class="col-xs-7"><%= propertyMap.title %></div>
+        <div class="col-xs-1"><%= propertyMap.credit %></div>
+        <div class="col-xs-1"><%= propertyMap.state %></div>
+        <div class="col-xs-1">
+            <div class="btn-group-vertical">
+                <button data-id="<%= key.id %>" data-state="1" type="button" class="updateState btn btn-default">Confirm</button>
+                <button data-id="<%= key.id %>" type="button" class="delete btn btn-danger">Delete</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="row active">
+        <div class="col-xs-12">
+            <p>Description:</p>
+            <p><%= propertyMap.description %></p>
+        </div>
+    </div>
+    <hr>
+</script>
+
+<script src="../../js/jquery-2.1.1.min.js"></script>
+<script src="../../js/underscore-min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        // cache and compile template
+        var taskTemplate = _.template($("#taskRow").html());
+
+        function loadTasks(){
+            $.getJSON('/api/task', function(tasks){
+                $("#tasksCollection").html("");
+                for(var i in tasks){
+                    $("#tasksCollection").append(taskTemplate(tasks[i]));
+                }
+            });
+        }
+
+        loadTasks();
+
+    });
+</script>
 </body>
 </html>
