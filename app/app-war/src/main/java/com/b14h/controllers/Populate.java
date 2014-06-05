@@ -25,10 +25,9 @@ public class Populate extends HttpServlet {
 
         for (int i = 0; i < 10; i++) {
             Entity task = new Entity(Constants.TASK_ENTITY);
-            task.setProperty("Title", title + Integer.toString(i));
-            task.setProperty("Description", desc + Integer.toString(i));
-            task.setProperty("Description", desc + Integer.toString(i));
-            task.setProperty("Credit", 10 + i);
+            task.setProperty("title", title + Integer.toString(i));
+            task.setProperty("description", desc + Integer.toString(i));
+            task.setProperty("credit", 10 + i);
             task.setProperty("state", Constants.TASK_OPEN);
             taskCollection.add(task);
         }
