@@ -43,3 +43,20 @@ Admin console
     
     http://localhost:8080/_ah/admin
     
+    
+    
+Deploy to Google App Engine
+---------------------------
+
+clean install needed?
+
+    cd app/app-ear
+    mvn appengine:update
+    
+
+live url:
+https://b14hgappid.appspot.com
+
+
+    
+    
