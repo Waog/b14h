@@ -80,7 +80,9 @@
             $.getJSON('/api/task', function (tasks) {
                 $("#tasksCollection").html("");
                 for (var i in tasks) {
-                    $("#tasksCollection").append(taskTemplate(tasks[i]));
+                    var task = tasks[i];
+                    var taskDom = taskTemplate(task);
+                    $("#tasksCollection").append(taskDom);
                 }
             });
         }
