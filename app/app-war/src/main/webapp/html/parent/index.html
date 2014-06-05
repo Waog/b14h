@@ -17,7 +17,7 @@
         </div>
         <div class="navbar-left">
             <ul class="nav navbar-nav">
-                <li><a href="/api/populate" >Generate tasks</a></li>
+                <li><a href="/api/populate">Generate tasks</a></li>
                 <li><a href="#">Authorize paypal</a></li>
             </ul>
         </div>
@@ -32,7 +32,7 @@
         <div class="col-xs-1"><b>State</b></div>
         <div class="col-xs-1"></div>
     </div>
-     <hr>
+    <hr>
     <div id="tasksCollection">
 
     </div>
@@ -48,7 +48,9 @@
         <div class="col-xs-1"><%= propertyMap.state %></div>
         <div class="col-xs-1">
             <div class="btn-group-vertical">
-                <button data-id="<%= key.id %>" data-state="1" type="button" class="updateState btn btn-default">Confirm</button>
+                <button data-id="<%= key.id %>" data-state="1" type="button" class="updateState btn btn-default">
+                    Confirm
+                </button>
                 <button data-id="<%= key.id %>" type="button" class="delete btn btn-danger">Delete</button>
             </div>
 
@@ -57,6 +59,7 @@
     <div class="row active">
         <div class="col-xs-12">
             <p>Description:</p>
+
             <p><%= propertyMap.description %></p>
         </div>
     </div>
@@ -68,15 +71,15 @@
 <script src="../../js/bootstrap.min.js"></script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         // cache and compile template
         var taskTemplate = _.template($("#taskRow").html());
 
-        function loadTasks(){
-            $.getJSON('/api/task', function(tasks){
+        function loadTasks() {
+            $.getJSON('/api/task', function (tasks) {
                 $("#tasksCollection").html("");
-                for(var i in tasks){
+                for (var i in tasks) {
                     $("#tasksCollection").append(taskTemplate(tasks[i]));
                 }
             });

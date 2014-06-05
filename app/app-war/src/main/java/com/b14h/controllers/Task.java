@@ -18,6 +18,7 @@ public class Task extends HttpServlet {
 
     /**
      * Get Task list
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -34,6 +35,7 @@ public class Task extends HttpServlet {
 
     /**
      * Update task
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -49,12 +51,14 @@ public class Task extends HttpServlet {
             task = datastore.get(key);
             task.setProperty("state", state);
             datastore.put(task);
-        } catch (EntityNotFoundException e) {}
+        } catch (EntityNotFoundException e) {
+        }
 
     }
 
     /**
      * Append task
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -64,8 +68,8 @@ public class Task extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Entity task = new Entity(Constants.TASK_ENTITY);
-        task.setProperty("title",  req.getParameter("title"));
-        task.setProperty("description",  req.getParameter("description"));
+        task.setProperty("title", req.getParameter("title"));
+        task.setProperty("description", req.getParameter("description"));
         task.setProperty("credit", req.getParameter("credit"));
         task.setProperty("state", Constants.TASK_OPEN);
         datastore.put(task);
@@ -73,6 +77,7 @@ public class Task extends HttpServlet {
 
     /**
      * Delete task
+     *
      * @param req
      * @param resp
      * @throws ServletException
