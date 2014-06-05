@@ -45,13 +45,14 @@ public class Task extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Key key = KeyFactory.stringToKey(req.getParameter("id"));
         String state = req.getParameter("state");
-        Entity task = null;
 
         try {
-            task = datastore.get(key);
+            Entity task = datastore.get(key);
             task.setProperty("state", state);
             datastore.put(task);
+            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
         } catch (EntityNotFoundException e) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
 
     }
@@ -73,6 +74,7 @@ public class Task extends HttpServlet {
         task.setProperty("credit", req.getParameter("credit"));
         task.setProperty("state", Constants.TASK_OPEN);
         datastore.put(task);
+        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 
     /**
@@ -87,5 +89,6 @@ public class Task extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Key key = KeyFactory.stringToKey(req.getParameter("id"));
         datastore.delete(key);
+        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 }
