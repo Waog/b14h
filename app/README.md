@@ -37,4 +37,9 @@ HTML Consumers (clients)
     http://127.0.0.1:8080/html/child
     http://127.0.0.1:8080/html/store
     
-   
+
+Admin console
+-------------
+    
+    http://localhost:8080/_ah/admin
+    
