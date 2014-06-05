@@ -28,3 +28,13 @@ Fetch all tasks
 ---------------
 
     http://127.0.0.1:8080/api/task
+
+
+HTML Consumers (clients)
+------------------------
+ 
+    http://127.0.0.1:8080/html/parent
+    http://127.0.0.1:8080/html/child
+    http://127.0.0.1:8080/html/store
+    
+   
