@@ -47,6 +47,7 @@ public class TaskTest {
     @Before
     public void setUp() throws Exception {
         helper.setUp();
+        ds.put(new Entity(Constants.TASK_ENTITY));
 
         parameters = new HashMap<String, String>();
         servlet = new Task();
@@ -60,9 +61,6 @@ public class TaskTest {
             }
         });
         when(response.getWriter()).thenReturn(new PrintWriter(response_writer));
-
-        ds.put(new Entity(Constants.TASK_ENTITY));
-
     }
 
     @After
@@ -78,21 +76,20 @@ public class TaskTest {
 
     @Test
     public void testDoPost() throws ServletException, IOException, EntityNotFoundException {
-        parameters.put("id","1");
-        parameters.put("state","1");
-
+        parameters.put("id", "1");
+        parameters.put("state", "1");
         servlet.doPost(request, response);
         Key key = KeyFactory.createKey(Constants.TASK_ENTITY, 1);
         Entity task = ds.get(key);
+
         Assert.assertEquals(task.getProperty("state"), "1");
     }
 
     @Test
     public void testDoPut() throws ServletException, IOException, EntityNotFoundException {
-        parameters.put("title","t");
-        parameters.put("description","d");
-        parameters.put("description","10");
-
+        parameters.put("title", "t");
+        parameters.put("description", "d");
+        parameters.put("description", "10");
         servlet.doPut(request, response);
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = ds.prepare(q).asList(withLimit(10));
@@ -102,11 +99,11 @@ public class TaskTest {
 
     @Test
     public void testDoDelete() throws ServletException, IOException, EntityNotFoundException {
-        parameters.put("id","1");
-
+        parameters.put("id", "1");
         servlet.doDelete(request, response);
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = ds.prepare(q).asList(withLimit(10));
+
         Assert.assertEquals(tasks.size(), 0);
     }
 }
