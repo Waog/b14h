@@ -10,5 +10,4 @@ public class BlubConverter {
         return blub * Constants.BLUB_EUR_RATIO;
     }
 
-
 }

@@ -18,11 +18,12 @@ public class Populate extends HttpServlet {
     private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+            IOException {
         String title = "my Task title ";
-        String desc = "Compiles JavaScript templates into functions that can be evaluated for rendering. Useful for " +
-                "rendering complicated bits of HTML from JSON data sources. Template functions can both interpolate " +
-                "variables, using <%= … %>, as well as execute arbitrary JavaScript code";
+        String desc = "Compiles JavaScript templates into functions that can be evaluated for rendering. Useful for "
+                + "rendering complicated bits of HTML from JSON data sources. Template functions can both interpolate "
+                + "variables, using <%= … %>, as well as execute arbitrary JavaScript code";
 
         List<Entity> taskCollection = new ArrayList<Entity>();
 

@@ -7,5 +7,5 @@ public class Constants {
     public static final Integer TASK_CLOSED = 1;
     public static final Integer TASK_CONFIRMED = 2;
     public static final double BLUB_EUR_RATIO = 0.01; // 1 Blub = 1 eur Cent
-    
+
 }
