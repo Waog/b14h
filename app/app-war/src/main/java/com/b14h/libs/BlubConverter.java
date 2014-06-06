@@ -7,7 +7,7 @@ public class BlubConverter {
     }
 
     public static double toEur(double blub) {
-        return blub / Constants.BLUB_EUR_RATIO;
+        return blub * Constants.BLUB_EUR_RATIO;
     }
 
 

@@ -2,7 +2,13 @@ package com.b14h.controllers;
 
 
 import com.b14h.libs.Constants;
-import com.google.appengine.api.datastore.*;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Query;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -12,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
+
 public class Task extends HttpServlet {
 
     private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -19,15 +27,15 @@ public class Task extends HttpServlet {
     /**
      * Get Task list
      *
-     * @param req
-     * @param resp
+     * @param req  HttpServletRequest
+     * @param resp HttpServletResponse
      * @throws ServletException
      * @throws IOException
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Query q = new Query(Constants.TASK_ENTITY);
-        List<Entity> tasks = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+        List<Entity> tasks = datastore.prepare(q).asList(withLimit(50));
         Gson json = new Gson();
         resp.setContentType("application/json");
         resp.getWriter().write(json.toJson(tasks));
@@ -36,14 +44,15 @@ public class Task extends HttpServlet {
     /**
      * Update task
      *
-     * @param req
-     * @param resp
+     * @param req  HttpServletRequest
+     * @param resp HttpServletResponse
      * @throws ServletException
      * @throws IOException
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Key key = KeyFactory.stringToKey(req.getParameter("id"));
+        Key key = KeyFactory.createKey(Constants.TASK_ENTITY, Long.parseLong(req.getParameter("id")));
+
         String state = req.getParameter("state");
 
         try {
@@ -60,8 +69,8 @@ public class Task extends HttpServlet {
     /**
      * Append task
      *
-     * @param req
-     * @param resp
+     * @param req  HttpServletRequest
+     * @param resp HttpServletResponse
      * @throws ServletException
      * @throws IOException
      */
@@ -80,14 +89,14 @@ public class Task extends HttpServlet {
     /**
      * Delete task
      *
-     * @param req
-     * @param resp
+     * @param req  HttpServletRequest
+     * @param resp HttpServletResponse
      * @throws ServletException
      * @throws IOException
      */
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Key key = KeyFactory.stringToKey(req.getParameter("id"));
+        Key key = KeyFactory.createKey(Constants.TASK_ENTITY, Long.parseLong(req.getParameter("id")));
         datastore.delete(key);
         resp.setStatus(HttpServletResponse.SC_ACCEPTED);
     }

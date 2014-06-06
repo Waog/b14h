@@ -43,7 +43,13 @@ Admin console
     
     http://localhost:8080/_ah/admin
     
-    
+
+Unit testing
+------------
+
+    cd app/app-war
+    mvn test
+       
     
 Deploy to Google App Engine
 ---------------------------
