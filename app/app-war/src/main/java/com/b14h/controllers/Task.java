@@ -1,6 +1,7 @@
 package com.b14h.controllers;
 
 import com.b14h.libs.Constants;
+import com.b14h.libs.Validators;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -25,7 +26,7 @@ public class Task extends HttpServlet {
 
     /**
      * Get Task list
-     * 
+     *
      * @param req HttpServletRequest
      * @param resp HttpServletResponse
      * @throws ServletException
@@ -43,7 +44,7 @@ public class Task extends HttpServlet {
 
     /**
      * Update task
-     * 
+     *
      * @param req HttpServletRequest
      * @param resp HttpServletResponse
      * @throws ServletException
@@ -52,6 +53,7 @@ public class Task extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
         Key key = KeyFactory.createKey(Constants.TASK_ENTITY,
                 Long.parseLong(req.getParameter("id")));
 
@@ -61,16 +63,17 @@ public class Task extends HttpServlet {
             Entity task = datastore.get(key);
             task.setProperty("state", state);
             datastore.put(task);
-            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+            resp.setStatus(HttpServletResponse.SC_OK);
         } catch (EntityNotFoundException e) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            resp.getWriter().write(e.getMessage());
         }
 
     }
 
     /**
      * Append task
-     * 
+     *
      * @param req HttpServletRequest
      * @param resp HttpServletResponse
      * @throws ServletException
@@ -85,13 +88,19 @@ public class Task extends HttpServlet {
         task.setProperty("description", req.getParameter("description"));
         task.setProperty("credit", req.getParameter("credit"));
         task.setProperty("state", Constants.TASK_OPEN);
-        datastore.put(task);
-        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+        if (!Validators.validateTask(task)) {
+            resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+            resp.getWriter().print("Task not valid");
+        } else {
+            datastore.put(task);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        }
     }
 
     /**
      * Delete task
-     * 
+     *
      * @param req HttpServletRequest
      * @param resp HttpServletResponse
      * @throws ServletException
@@ -100,9 +109,12 @@ public class Task extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
         Key key = KeyFactory.createKey(Constants.TASK_ENTITY,
                 Long.parseLong(req.getParameter("id")));
         datastore.delete(key);
-        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
+
+
 }

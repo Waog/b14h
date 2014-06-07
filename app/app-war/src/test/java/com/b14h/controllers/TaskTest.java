@@ -89,12 +89,12 @@ public class TaskTest {
     public void testDoPut() throws ServletException, IOException, EntityNotFoundException {
         parameters.put("title", "t");
         parameters.put("description", "d");
-        parameters.put("description", "10");
+        parameters.put("credit", "10");
         servlet.doPut(request, response);
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = ds.prepare(q).asList(withLimit(10));
 
-        Assert.assertEquals(tasks.size(), 2);
+        Assert.assertEquals(2, tasks.size());
     }
 
     @Test

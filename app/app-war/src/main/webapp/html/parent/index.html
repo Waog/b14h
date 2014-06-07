@@ -17,20 +17,52 @@
             </div>
             <div class="navbar-left">
                 <ul class="nav navbar-nav">
-                    <li><a href="/api/populate">Generate tasks</a></li>
+                    <li><a id="taskFormTg" href="#">New Task</a></li>
+                    <li><a id="populateTasks" href="/api/populate">Generate tasks</a></li>
                     <li><a href="#">Authorize paypal</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
+    <div id="error" class="alert alert-danger alert-dismissable" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span></span>
+    </div>
+
+    <div class="panel panel-default panel-info" style="display: none;" id="newTaskFormPanel">
+        <div class="panel-heading">Create new task</div>
+        <div class="panel-body">
+            <form role="form" id="newTaskForm" method="post">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" name="title" id="title"
+                           placeholder="Task title">
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Credit</label>
+                    <input type="number" class="form-control" name="credit" id="credit"
+                           placeholder="Task credit">
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Description</label>
+                    <textarea class="form-control" name="description" id="description"
+                              placeholder="Task description"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-info">Submit</button>
+            </form>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
-            <div class="col-xs-2"><b>Key</b></div>
-            <div class="col-xs-7"><b>Title</b></div>
-            <div class="col-xs-1"><b>Credit</b></div>
-            <div class="col-xs-1"><b>State</b></div>
-            <div class="col-xs-1"></div>
+            <div class="col-xs-6"><b>Title</b></div>
+            <div class="col-xs-2"><b>Credit</b></div>
+            <div class="col-xs-2"><b>State</b></div>
+            <div class="col-xs-2"></div>
         </div>
         <hr>
         <div id="tasksCollection"></div>
@@ -39,11 +71,10 @@
 
     <script type="text/template" id="taskRow">
         <div class="row">
-            <div class="col-xs-2"><%= key.id %></div>
-            <div class="col-xs-7"><%= propertyMap.title %></div>
-            <div class="col-xs-1"><%= propertyMap.credit %></div>
-            <div class="col-xs-1"><%= propertyMap.state %></div>
-            <div class="col-xs-1">
+            <div class="col-xs-6"><%= propertyMap.title %></div>
+            <div class="col-xs-2"><%= propertyMap.credit %></div>
+            <div class="col-xs-2"><%= propertyMap.state %></div>
+            <div class="col-xs-2">
                 <div class="btn-group-vertical">
                     <button data-id="<%= key.id %>" data-state="2" type="button"
                             class="updateState btn btn-default">
@@ -58,7 +89,7 @@
         </div>
         <div class="row active">
             <div class="col-xs-12">
-                <p>Description:</p>
+                <p><b>Description:</b></p>
 
                 <p><%= propertyMap.description %></p>
             </div>
@@ -69,26 +100,11 @@
     <script src="../../js/jquery-2.1.1.min.js"></script>
     <script src="../../js/underscore-min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
-
+    <script src="../../js/parent.js"></script>
     <script>
         $(document).ready(function () {
-
-            // cache and compile template
-            var taskTemplate = _.template($("#taskRow").html());
-
-            function loadTasks() {
-                $.getJSON('/api/task', function (tasks) {
-                    $('#tasksCollection').html("");
-                    for (var i in tasks) {
-                        var task = tasks[i];
-                        var taskDom = taskTemplate(task);
-                        $("#tasksCollection").append(taskDom);
-                    }
-                });
-            }
-
-            loadTasks();
-
+            Parent.init();
+            Parent.loadTasks();
         });
     </script>
 </body>

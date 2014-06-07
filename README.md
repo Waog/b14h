@@ -49,7 +49,11 @@ Unit testing
 
     cd app/app-war
     mvn test
-       
+    
+Skip testing in any maven task (quick reloading)
+
+    -Dmaven.test.skip=true
+   
     
 Deploy to Google App Engine
 ---------------------------
