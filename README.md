@@ -16,6 +16,15 @@ Run dev server
 
     cd app/app-ear
     mvn appengine:devserver
+    
+    
+Mobile Testing
+--------------
+
+accessing dev server from you phone
+
+    http://yourlocalip:8080
+
 
 
 Prepopulate data
