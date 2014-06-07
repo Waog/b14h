@@ -32,9 +32,7 @@ var Parent = {
         });
 
         $('#taskFormTg').click(function (e) {
-            e.preventDefault();
             $('#newTaskFormPanel').toggle();
-
         });
 
         $('#newTaskForm').submit(function (e) {
