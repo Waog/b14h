@@ -6,25 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Parent app</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/main.css">
 </head>
-<body>
+<body class="body-panel-top">
 
     <!-- navigation header -->
-    <div class="navbar navbar-default " role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Parent app</a>
-            </div>
-            <div class="navbar-left">
-                <ul class="nav navbar-nav">
-                    <li><a id="taskFormTg" href="#">New Task</a></li>
-                    <li><a id="populateTasks" href="/api/populate">Generate tasks</a></li>
-                    <li><a href="#">Authorize paypal</a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="panel panel-success panel-top-fixed" >
+        <ul class="nav nav-pills">
+            <li><a id="taskFormTg" href="#">New Task</a></li>
+            <li><a id="populateTasks" href="/api/populate">Generate tasks</a></li>
+            <li><a href="#">Authorize paypal</a></li>
+        </ul>
     </div>
-
+    <div>
     <div id="error" class="alert alert-danger alert-dismissable" style="display: none">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <span></span>
@@ -57,25 +51,35 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-6"><b>Title</b></div>
-            <div class="col-xs-2"><b>Credit</b></div>
-            <div class="col-xs-2"><b>State</b></div>
-            <div class="col-xs-2"></div>
-        </div>
-        <hr>
-        <div id="tasksCollection"></div>
-
-    </div>
+    <div id="tasksCollection" class="container"></div>
 
     <script type="text/template" id="taskRow">
         <div class="row">
-            <div class="col-xs-6"><%= propertyMap.title %></div>
-            <div class="col-xs-2"><%= propertyMap.credit %></div>
-            <div class="col-xs-2"><%= propertyMap.state %></div>
-            <div class="col-xs-2">
-                <div class="btn-group-vertical">
+            <div class="col-xs-8">
+                <% if(propertyMap.state == 2) {%>
+                    <span class="glyphicon glyphicon-ok text-success"></span>
+                <% } %>
+
+                <% if(propertyMap.state == 1) {%>
+                <span class="glyphicon glyphicon-eye-open text-info"></span>
+                <% } %>
+
+                <b><%= propertyMap.title %></b>
+            </div>
+            <div class="col-xs-4 text-right">
+                <span class="text-muted">Credits
+                    <span class="label label-info"><%= propertyMap.credit %></span>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="text-muted"><%= propertyMap.description %></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="btn-group text-right">
                     <button data-id="<%= key.id %>" data-state="2" type="button"
                             class="updateState btn btn-default">
                         Confirm
@@ -84,14 +88,6 @@
                         Delete
                     </button>
                 </div>
-
-            </div>
-        </div>
-        <div class="row active">
-            <div class="col-xs-12">
-                <p><b>Description:</b></p>
-
-                <p><%= propertyMap.description %></p>
             </div>
         </div>
         <hr>

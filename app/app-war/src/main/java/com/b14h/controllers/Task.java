@@ -38,7 +38,7 @@ public class Task extends HttpServlet {
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = datastore.prepare(q).asList(withLimit(50));
         Gson json = new Gson();
-        resp.setContentType("application/json");
+        resp.setContentType("application/json; charset=UTF-8");
         resp.getWriter().write(json.toJson(tasks));
     }
 
