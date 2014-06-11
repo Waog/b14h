@@ -16,6 +16,12 @@ Run dev server
 
     cd app/app-ear
     mvn appengine:devserver
+
+
+Run dev server on different port (default 8080)
+
+    mvn appengine:devserver -Dappengine.port=5000
+    
     
     
 Mobile Testing
