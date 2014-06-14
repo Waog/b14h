@@ -1,5 +1,6 @@
 package com.b14h.controllers;
 
+import AdaptivePaymentsService.java;
 import com.b14h.libs.Constants;
 import com.b14h.libs.Validators;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -26,17 +27,29 @@ public class Preapproval extends HttpServlet {
 
     /**
      * Get Preapproval redirect URL.
-     *
-     * @param req HttpServletRequest should contain the parent Paypal ID in future versions.
-     * @param resp HttpServletResponse contains redirect URL to paypal with the preapproval key.
+     * 
+     * @param req HttpServletRequest should contain the parent Paypal ID in
+     *            future versions.
+     * @param resp HttpServletResponse contains redirect URL to paypal with the
+     *            preapproval key.
      * @throws ServletException
      * @throws IOException
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
-        super.doGet(req, resp);
+        // super.doGet(req, resp);
         resp.setContentType("text/html; charset=UTF-8");
         resp.getWriter().write("Hello Preapproval!");
+
+        Map<String, String> customConfigurationMap = new HashMap<String, String>();
+        customConfigurationMap.put("mode", "sandbox"); // Load the map with all
+                                                       // mandatory parameters
+        AdaptivePaymentsService adaptivePaymentsService = new AdaptivePaymentsService(Map < String,
+                String > customConfigurationMap);
+        
+        PreapprovalRequest preapprovalRequest = new PreapprovalRequest();
+        
+        PayResponse payResponse = adaptivePaymentsService.preapproval(preapprovalRequest);
     }
 }
