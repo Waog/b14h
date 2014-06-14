@@ -50,6 +50,8 @@ public class Preapproval extends HttpServlet {
         
         PreapprovalRequest preapprovalRequest = new PreapprovalRequest();
         
+        System.out.println("Debug test");
+        
         PayResponse payResponse = adaptivePaymentsService.preapproval(preapprovalRequest);
     }
 }
