@@ -20,4 +20,13 @@
         <url-pattern>/api/task</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>preapproval</servlet-name>
+        <servlet-class>com.b14h.controllers.Preapproval</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>preapproval</servlet-name>
+        <url-pattern>/api/preapproval</url-pattern>
+    </servlet-mapping>
+
 </web-app>
