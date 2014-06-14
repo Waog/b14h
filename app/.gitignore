@@ -12,3 +12,5 @@ out
 .classpath
 .project
 mvn
+/bin
+/EarContent
