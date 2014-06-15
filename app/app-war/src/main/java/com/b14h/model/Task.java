@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.b14h.model;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -12,15 +6,17 @@ import com.googlecode.objectify.annotation.Id;
 /**
  * @author aabarb
  */
-@Entity(name = "task")
+@Entity
 public class Task {
-
-    private final String description;
-    private final int credit;
-    private final String title;
     @Id
-    private long taskId;
+    private Long taskId;
+    private String title;
+    private String description;
+    private int credit;
     private TaskStatus status;
+
+    public Task() {
+    }
 
     public Task(String title, String description, int credit) {
         this.title = title;
@@ -28,16 +24,37 @@ public class Task {
         this.credit = credit;
     }
 
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
+
     public String getTitle() {
         return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
         return this.description;
     }
 
+    public void setDescription(String description) {
+
+        this.description = description;
+    }
+
     public int getCredit() {
         return this.credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
     }
 
     public TaskStatus getStatus() {
@@ -53,4 +70,5 @@ public class Task {
         CLOSED,
         CONFIRMED
     }
+
 }

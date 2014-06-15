@@ -1,13 +1,8 @@
 package com.b14h.controllers;
 
-import com.b14h.libs.Constants;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
+import com.b14h.model.Task;
+import com.b14h.services.DbService;
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.Query;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import org.junit.After;
@@ -27,16 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
-public class TaskTest {
+public class TaskServletTest {
 
     private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-    DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
     private TaskServlet servlet;
     private HttpServletRequest request;
@@ -48,11 +40,13 @@ public class TaskTest {
     public void setUp() throws Exception {
         helper.setUp();
 
-        Entity taskEntity = new Entity(Constants.TASK_ENTITY);
-        taskEntity.setProperty("title", "t");
-        taskEntity.setProperty("state", Constants.TaskStatus.OPEN.ordinal());
-
-        ds.put(taskEntity);
+        Task task = new Task();
+        task.setTitle("t");
+        task.setStatus(Task.TaskStatus.OPEN);
+        task.setCredit(10);
+        task.setDescription("asd");
+        DbService.ofy().save().entity(task).now();
+        List<Task> tasks = DbService.ofy().load().type(Task.class).list();
 
         parameters = new HashMap<String, String>();
         servlet = new TaskServlet();
@@ -76,8 +70,8 @@ public class TaskTest {
     @Test
     public void testDoGet() throws Exception {
         servlet.doGet(request, response);
-        String expected = "[{\"key\":{\"kind\":\"Task\",\"id\":1}," +
-                "\"propertyMap\":{\"title\":\"t\",\"state\":0}}]";
+        String expected = "[{\"taskId\":1,\"title\":\"t\",\"description\":" +
+                "\"asd\",\"credit\":10,\"status\":\"OPEN\"}]";
 
         Assert.assertEquals(expected, response_writer.toString());
     }
@@ -85,12 +79,12 @@ public class TaskTest {
     @Test
     public void testDoPost() throws ServletException, IOException, EntityNotFoundException {
         parameters.put("taskId", "1");
-        parameters.put("status", "1");
+        Integer i = Task.TaskStatus.CONFIRMED.ordinal();
+        parameters.put("status", i.toString() );
         servlet.doPost(request, response);
-        Key key = KeyFactory.createKey(Constants.TASK_ENTITY, 1);
-        Entity task = ds.get(key);
 
-        Assert.assertEquals(task.getProperty("status"), "1");
+        Task task = DbService.ofy().load().type(Task.class).id(1).now();
+        Assert.assertEquals(task.getStatus(), Task.TaskStatus.CONFIRMED);
     }
 
     @Test
@@ -99,8 +93,8 @@ public class TaskTest {
         parameters.put("description", "d");
         parameters.put("credit", "10");
         servlet.doPut(request, response);
-        Query q = new Query(Constants.TASK_ENTITY);
-        List<Entity> tasks = ds.prepare(q).asList(withLimit(10));
+
+        List<Task> tasks = DbService.ofy().load().type(Task.class).list();
         Assert.assertEquals(2, tasks.size());
     }
 
@@ -108,8 +102,7 @@ public class TaskTest {
     public void testDoDelete() throws ServletException, IOException, EntityNotFoundException {
         parameters.put("taskId", "1");
         servlet.doDelete(request, response);
-        Query q = new Query(Constants.TASK_ENTITY);
-        List<Entity> tasks = ds.prepare(q).asList(withLimit(10));
+        List<Task> tasks = DbService.ofy().load().type(Task.class).list();
 
         Assert.assertEquals(tasks.size(), 0);
     }

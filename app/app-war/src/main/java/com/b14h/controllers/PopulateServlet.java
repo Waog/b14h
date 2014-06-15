@@ -1,6 +1,7 @@
 package com.b14h.controllers;
 
 import com.b14h.model.Task;
+import com.b14h.services.DbService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +24,7 @@ public class PopulateServlet extends HttpServlet {
         for (int i = 0; i < 10; i++) {
             Task task = new Task(title, desc, 10 + 1);
             task.setStatus(Task.TaskStatus.OPEN);
-            ofy().save().entities(task).now();
+            DbService.ofy().save().entities(task).now();
         }
         resp.getWriter().write("OK");
     }
