@@ -38,7 +38,7 @@ public class TaskTest {
     private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
     DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
-    private Task servlet;
+    private TaskServlet servlet;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private StringWriter response_writer;
@@ -50,12 +50,12 @@ public class TaskTest {
 
         Entity taskEntity = new Entity(Constants.TASK_ENTITY);
         taskEntity.setProperty("title", "t");
-        taskEntity.setProperty("state", Constants.TASK_OPEN);
+        taskEntity.setProperty("state", Constants.TaskStatus.OPEN.ordinal());
 
         ds.put(taskEntity);
 
         parameters = new HashMap<String, String>();
-        servlet = new Task();
+        servlet = new TaskServlet();
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         response_writer = new StringWriter();
@@ -84,13 +84,13 @@ public class TaskTest {
 
     @Test
     public void testDoPost() throws ServletException, IOException, EntityNotFoundException {
-        parameters.put("id", "1");
-        parameters.put("state", "1");
+        parameters.put("taskId", "1");
+        parameters.put("status", "1");
         servlet.doPost(request, response);
         Key key = KeyFactory.createKey(Constants.TASK_ENTITY, 1);
         Entity task = ds.get(key);
 
-        Assert.assertEquals(task.getProperty("state"), "1");
+        Assert.assertEquals(task.getProperty("status"), "1");
     }
 
     @Test
@@ -101,13 +101,12 @@ public class TaskTest {
         servlet.doPut(request, response);
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = ds.prepare(q).asList(withLimit(10));
-
         Assert.assertEquals(2, tasks.size());
     }
 
     @Test
     public void testDoDelete() throws ServletException, IOException, EntityNotFoundException {
-        parameters.put("id", "1");
+        parameters.put("taskId", "1");
         servlet.doDelete(request, response);
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = ds.prepare(q).asList(withLimit(10));

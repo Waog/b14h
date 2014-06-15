@@ -1,6 +1,7 @@
 package com.b14h.controllers;
 
 import com.b14h.libs.Constants;
+import com.b14h.libs.Constants.TaskStatus;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Populate extends HttpServlet {
+public class PopulateServlet extends HttpServlet {
 
     private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -32,7 +33,7 @@ public class Populate extends HttpServlet {
             task.setProperty("title", title + Integer.toString(i));
             task.setProperty("description", desc + Integer.toString(i));
             task.setProperty("credit", 10 + i);
-            task.setProperty("state", Constants.TASK_OPEN);
+            task.setProperty("state", TaskStatus.OPEN);
             taskCollection.add(task);
         }
         datastore.put(taskCollection);

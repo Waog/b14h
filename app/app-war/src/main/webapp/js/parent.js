@@ -14,8 +14,8 @@ var Parent = {
             e.preventDefault();
 
             var data = {
-                id: $(this).attr('data-id'),
-                state: $(this).attr('data-state')
+                taskId: $(this).attr('data-id'),
+                status: $(this).attr('data-state')
             };
             Parent.updateTask(data);
         });
@@ -61,7 +61,7 @@ var Parent = {
 
     deleteTask: function (id) {
         $.ajax({
-            url: Parent.endpoint + "?id=" + id,
+            url: Parent.endpoint + "?taskId=" + id,
             type: 'DELETE',
             success: Parent.loadTasks,
             error: Parent.reqError
