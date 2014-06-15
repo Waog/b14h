@@ -79,8 +79,7 @@ public class TaskServletTest {
     @Test
     public void testDoPost() throws ServletException, IOException, EntityNotFoundException {
         parameters.put("taskId", "1");
-        Integer i = Task.TaskStatus.CONFIRMED.ordinal();
-        parameters.put("status", i.toString() );
+        parameters.put("status", Task.TaskStatus.CONFIRMED.name() );
         servlet.doPost(request, response);
 
         Task task = DbService.ofy().load().type(Task.class).id(1).now();

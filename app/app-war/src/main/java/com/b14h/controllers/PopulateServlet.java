@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 public class PopulateServlet extends HttpServlet {
 
     @Override

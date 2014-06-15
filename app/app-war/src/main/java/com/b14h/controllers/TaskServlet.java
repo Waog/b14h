@@ -49,11 +49,9 @@ public class TaskServlet extends HttpServlet {
 
         Long taskId = Long.parseLong(req.getParameter("taskId"));
 
-        int state = Integer.valueOf(req.getParameter("status"));
-
         Task task = DbService.ofy().load().type(Task.class).id(taskId).now();
 
-        task.setStatus(Task.TaskStatus.values()[state]);
+        task.setStatus(Task.TaskStatus.valueOf(req.getParameter("status")));
         DbService.ofy().save().entities(task).now();
 
         resp.setStatus(HttpServletResponse.SC_OK);

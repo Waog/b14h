@@ -57,35 +57,35 @@
     <script type="text/template" id="taskRow">
         <div class="row">
             <div class="col-xs-8">
-                <% if(propertyMap.state == 2) {%>
+                <% if(status == "CONFIRMED") {%>
                     <span class="glyphicon glyphicon-ok text-success"></span>
                 <% } %>
 
-                <% if(propertyMap.state == 1) {%>
+                <% if(status == "CLOSED") {%>
                 <span class="glyphicon glyphicon-eye-open text-info"></span>
                 <% } %>
 
-                <b><%= propertyMap.title %></b>
+                <b><%= title %></b>
             </div>
             <div class="col-xs-4 text-right">
                 <span class="text-muted">Credits
-                    <span class="label label-info"><%= propertyMap.credit %></span>
+                    <span class="label label-info"><%= credit %></span>
                 </span>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <p class="text-muted"><%= propertyMap.description %></p>
+                <p class="text-muted"><%= description %></p>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="btn-group text-right">
-                    <button data-id="<%= key.id %>" data-state="2" type="button"
+                    <button data-id="<%= taskId %>" data-state="CONFIRMED" type="button"
                             class="updateState btn btn-default">
                         Confirm
                     </button>
-                    <button data-id="<%= key.id %>" type="button" class="delete btn btn-warning">
+                    <button data-id="<%= taskId %>" type="button" class="delete btn btn-warning">
                         Delete
                     </button>
                 </div>
