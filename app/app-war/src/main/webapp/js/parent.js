@@ -61,7 +61,7 @@ var Parent = {
 
     deleteTask: function (id) {
         $.ajax({
-            url: Parent.endpoint + "?id=" + id,
+            url: Parent.endpoint + "?taskId=" + id,
             type: 'DELETE',
             success: Parent.loadTasks,
             error: Parent.reqError
