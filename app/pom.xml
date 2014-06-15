@@ -21,8 +21,14 @@
                     <version>${appengine.target.version}</version>
                     <configuration>
                         <address>0.0.0.0</address>
+                        <jvmFlags>
+                            <jvmFlag>-Xdebug</jvmFlag>
+                            <jvmFlag>-Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=y
+                            </jvmFlag>
+                        </jvmFlags>
                     </configuration>
                 </plugin>
+
                 <plugin>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-maven-plugin</artifactId>
