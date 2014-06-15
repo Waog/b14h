@@ -29,4 +29,13 @@
         <url-pattern>/api/preapproval</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>pay</servlet-name>
+        <servlet-class>com.b14h.controllers.Pay</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pay</servlet-name>
+        <url-pattern>/api/pay</url-pattern>
+    </servlet-mapping>
+
 </web-app>
