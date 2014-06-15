@@ -22,7 +22,7 @@
 
     <servlet>
         <servlet-name>preapproval</servlet-name>
-        <servlet-class>com.b14h.controllers.Preapproval</servlet-class>
+        <servlet-class>com.b14h.controllers.PreapprovalServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>preapproval</servlet-name>
@@ -31,7 +31,7 @@
 
     <servlet>
         <servlet-name>pay</servlet-name>
-        <servlet-class>com.b14h.controllers.Pay</servlet-class>
+        <servlet-class>com.b14h.controllers.PayServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>pay</servlet-name>
