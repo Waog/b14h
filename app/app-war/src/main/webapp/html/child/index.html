@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>Child index</title>
+<meta charset="UTF-8">
+<title>Child app</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/main.css">
 </head>
 <body>
-html/child/index.html
+
+    <!-- navigation header -->
+    <div class="panel panel-success panel-top-fixed">
+        <ul class="nav nav-pills">
+            <li><a id="buy" href="">Buy</a>
+            </li>
+        </ul>
+    </div>
+
+    <script src="../../js/jquery-2.1.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var callbackUrl = "http://" + window.location.host +
+                    "/html/child/approve.html?code={CODE}";
+
+            var buyUrl = "http://zxing.appspot.com/scan?ret=" + encodeURIComponent(callbackUrl);
+
+            $("#buy").attr('href', buyUrl);
+        });
+    </script>
 </body>
 </html>
