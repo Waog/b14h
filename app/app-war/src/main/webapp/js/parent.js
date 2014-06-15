@@ -14,8 +14,8 @@ var Parent = {
             e.preventDefault();
 
             var data = {
-                id: $(this).attr('data-id'),
-                state: $(this).attr('data-state')
+                taskId: $(this).attr('data-id'),
+                status: $(this).attr('data-state')
             };
             Parent.updateTask(data);
         });

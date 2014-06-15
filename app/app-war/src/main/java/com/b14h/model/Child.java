@@ -5,42 +5,25 @@
  */
 
 package com.b14h.model;
-
-import java.util.ArrayList;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Entity;
 
 /**
  *
  * @author aabarb
  */
+@Entity(name="child")
 public class Child {
     
    private int blubs;
-   private int parentId;
-   private int childId;
-   private ArrayList<Task> tasks;
+   @Id private int childId;
    
    public int getBlubs() {
        return this.blubs;
    }
    
-   public int getParentId() {
-       return this.parentId;
-   }
-   
-   public Child getByChildId(int childId) {
-       // TODO: get entry from DB
-       return new Child(1);
-   }
-   
-   public Child(int parentId) {
+   public Child() {
        this.blubs = 0;
-       this.parentId = parentId; 
-       this.tasks = new ArrayList<Task>();
-       // TODO: db query to create a new entry in the Child table returns childKey
-   }
-   
-   public void save() {
-       //TODO: query to save the entry in the DB
    }
    
    public void updateBlubs(int amount) {

@@ -55,13 +55,13 @@ public class TaskServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Key key = KeyFactory.createKey(Constants.TASK_ENTITY,
-                Long.parseLong(req.getParameter("id")));
+                Long.parseLong(req.getParameter("taskId")));
 
-        String state = req.getParameter("state");
+        String state = req.getParameter("status");
 
         try {
             Entity task = datastore.get(key);
-            task.setProperty("state", state);
+            task.setProperty("status", state);
             datastore.put(task);
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (EntityNotFoundException e) {
@@ -113,7 +113,7 @@ public class TaskServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Key key = KeyFactory.createKey(Constants.TASK_ENTITY,
-                Long.parseLong(req.getParameter("id")));
+                Long.parseLong(req.getParameter("taskId")));
         datastore.delete(key);
         resp.setStatus(HttpServletResponse.SC_OK);
     }

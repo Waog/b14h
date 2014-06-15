@@ -76,13 +76,13 @@ public class TaskTest {
 
     @Test
     public void testDoPost() throws ServletException, IOException, EntityNotFoundException {
-        parameters.put("id", "1");
-        parameters.put("state", "1");
+        parameters.put("taskId", "1");
+        parameters.put("status", "1");
         servlet.doPost(request, response);
         Key key = KeyFactory.createKey(Constants.TASK_ENTITY, 1);
         Entity task = ds.get(key);
 
-        Assert.assertEquals(task.getProperty("state"), "1");
+        Assert.assertEquals(task.getProperty("status"), "1");
     }
 
     @Test
@@ -90,18 +90,15 @@ public class TaskTest {
         parameters.put("title", "t");
         parameters.put("description", "d");
         parameters.put("credit", "10");
-        parameters.put("childId", "1");
-        parameters.put("parentId", "1");
         servlet.doPut(request, response);
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = ds.prepare(q).asList(withLimit(10));
-
         Assert.assertEquals(2, tasks.size());
     }
 
     @Test
     public void testDoDelete() throws ServletException, IOException, EntityNotFoundException {
-        parameters.put("id", "1");
+        parameters.put("taskId", "1");
         servlet.doDelete(request, response);
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = ds.prepare(q).asList(withLimit(10));

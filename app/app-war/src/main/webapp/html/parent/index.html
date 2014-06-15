@@ -18,7 +18,6 @@
             <li><a href="#">Authorize paypal</a></li>
         </ul>
     </div>
-    <div>
     <div id="error" class="alert alert-danger alert-dismissable" style="display: none">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <span></span>
@@ -31,13 +30,13 @@
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" name="title" id="title"
-                           placeholder="Task title">
+                           placeholder="Task title"/>
                 </div>
 
                 <div class="form-group">
                     <label for="title">Credit</label>
                     <input type="number" class="form-control" name="credit" id="credit"
-                           placeholder="Task credit">
+                           placeholder="Task credit"/>
                 </div>
 
                 <div class="form-group">
@@ -45,6 +44,8 @@
                     <textarea class="form-control" name="description" id="description"
                               placeholder="Task description"></textarea>
                 </div>
+                
+                <input type="hidden" name="parentId" id="parentId" value="1"/>
 
                 <button type="submit" class="btn btn-info">Submit</button>
             </form>
