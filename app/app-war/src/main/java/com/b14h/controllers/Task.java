@@ -35,7 +35,7 @@ public class Task extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
-        Query q = new Query(Constants.TASK_ENTITY);
+        Query q = new Query(Constants.TASK_ENTITY).addSort("state", Query.SortDirection.DESCENDING);
         List<Entity> tasks = datastore.prepare(q).asList(withLimit(50));
         Gson json = new Gson();
         resp.setContentType("application/json; charset=UTF-8");

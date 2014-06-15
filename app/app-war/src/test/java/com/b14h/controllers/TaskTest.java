@@ -47,7 +47,12 @@ public class TaskTest {
     @Before
     public void setUp() throws Exception {
         helper.setUp();
-        ds.put(new Entity(Constants.TASK_ENTITY));
+
+        Entity taskEntity = new Entity(Constants.TASK_ENTITY);
+        taskEntity.setProperty("title", "t");
+        taskEntity.setProperty("state", Constants.TASK_OPEN);
+
+        ds.put(taskEntity);
 
         parameters = new HashMap<String, String>();
         servlet = new Task();
@@ -71,7 +76,10 @@ public class TaskTest {
     @Test
     public void testDoGet() throws Exception {
         servlet.doGet(request, response);
-        Assert.assertEquals(response_writer.toString(), "[{\"key\":{\"kind\":\"Task\",\"id\":1},\"propertyMap\":{}}]");
+        String expected = "[{\"key\":{\"kind\":\"Task\",\"id\":1}," +
+                "\"propertyMap\":{\"title\":\"t\",\"state\":0}}]";
+
+        Assert.assertEquals(expected, response_writer.toString());
     }
 
     @Test
