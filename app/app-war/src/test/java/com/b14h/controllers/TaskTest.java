@@ -38,7 +38,7 @@ public class TaskTest {
     private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
     DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
-    private Task servlet;
+    private TaskServlet servlet;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private StringWriter response_writer;
@@ -50,7 +50,7 @@ public class TaskTest {
         ds.put(new Entity(Constants.TASK_ENTITY));
 
         parameters = new HashMap<String, String>();
-        servlet = new Task();
+        servlet = new TaskServlet();
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         response_writer = new StringWriter();
@@ -90,6 +90,8 @@ public class TaskTest {
         parameters.put("title", "t");
         parameters.put("description", "d");
         parameters.put("credit", "10");
+        parameters.put("childId", "1");
+        parameters.put("parentId", "1");
         servlet.doPut(request, response);
         Query q = new Query(Constants.TASK_ENTITY);
         List<Entity> tasks = ds.prepare(q).asList(withLimit(10));

@@ -1,26 +1,26 @@
 package com.b14h.controllers;
 
 import com.b14h.libs.Constants;
+import com.b14h.libs.Constants.TaskStatus;
 import com.b14h.libs.Validators;
+import com.b14h.model.Task;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.gson.Gson;
-
+import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
 
-import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
-
-public class Task extends HttpServlet {
+public class TaskServlet extends HttpServlet {
 
     private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -87,7 +87,9 @@ public class Task extends HttpServlet {
         task.setProperty("title", req.getParameter("title"));
         task.setProperty("description", req.getParameter("description"));
         task.setProperty("credit", req.getParameter("credit"));
-        task.setProperty("state", Constants.TASK_OPEN);
+        task.setProperty("childId", req.getParameter("childId"));
+        task.setProperty("parentId", req.getParameter("parentId"));
+        task.setProperty("status", TaskStatus.OPEN.ordinal());
 
         if (!Validators.validateTask(task)) {
             resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);

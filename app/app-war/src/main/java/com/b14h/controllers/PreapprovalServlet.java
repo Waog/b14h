@@ -22,7 +22,7 @@ import com.paypal.svcs.services.AdaptivePaymentsService;
 import com.paypal.svcs.types.ap.PreapprovalRequest;
 import com.paypal.svcs.types.ap.PreapprovalResponse;
 
-public class Preapproval extends HttpServlet {
+public class PreapprovalServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -5608710629269370689L;
 	
@@ -30,7 +30,7 @@ public class Preapproval extends HttpServlet {
 			.getDatastoreService();
 
 	/**
-	 * Get Preapproval redirect URL.
+	 * Get PreapprovalServlet redirect URL.
 	 * 
 	 * @param req
 	 *            HttpServletRequest should contain the parent Paypal ID in

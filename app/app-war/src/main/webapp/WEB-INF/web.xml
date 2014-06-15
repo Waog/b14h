@@ -4,7 +4,7 @@
 
     <servlet>
         <servlet-name>populate</servlet-name>
-        <servlet-class>com.b14h.controllers.Populate</servlet-class>
+        <servlet-class>com.b14h.controllers.PopulateServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>populate</servlet-name>
@@ -13,7 +13,7 @@
 
     <servlet>
         <servlet-name>task</servlet-name>
-        <servlet-class>com.b14h.controllers.Task</servlet-class>
+        <servlet-class>com.b14h.controllers.TaskServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>task</servlet-name>
@@ -22,7 +22,7 @@
 
     <servlet>
         <servlet-name>preapproval</servlet-name>
-        <servlet-class>com.b14h.controllers.Preapproval</servlet-class>
+        <servlet-class>com.b14h.controllers.PreapprovalServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>preapproval</servlet-name>
