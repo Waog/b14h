@@ -106,6 +106,8 @@ public class Preapproval extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		PreapprovalResponse debugPreApprovalResp = preapprovalResponse;
+		String preapprovalKey = preapprovalResponse.getPreapprovalKey();
+		
+		resp.sendRedirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-preapproval&preapprovalkey=" + preapprovalKey);
 	}
 }
