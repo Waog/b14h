@@ -9,14 +9,14 @@ var Parent = {
 
 	init : function() {
 
-		// evaluate url parameters and set a cookie if neccessary
+		// evaluate url parameters and set/delete a cookie if neccessary
 		if (getUrlParameter('preapprovalSuccessful') == 'true') {
 			// sets a 'preapproved cookie, if the url parameter is set
 			document.cookie = 'preapproved=true;';
 		}
 		if (getUrlParameter('preapprovalSuccessful') == 'false') {
 			// sets a 'preapproved cookie, if the url parameter is set
-			document.cookie = 'preapproved=false;';
+			document.cookie = 'preapproved=;';
 		}
 		// get the preapproved cookie
 		var preapprovedCookie = document.cookie.replace(
