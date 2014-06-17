@@ -24,8 +24,8 @@ public class PreapprovalService {
 
 	private static final String ERROR_LANGUAGE = "en_US";
 	private static final String CURRENCY_CODE = "EUR";
-	private static final String REDIRECT_URL_SUCCEEDED_PREAPPROVAL = "http://localhost:8080/html/succeededPreapproval/";
-	private static final String REDIRECT_URL_CANCELED_PREAPPROVAL = "http://localhost:8080/html/canceledPreapproval/";
+	private static final String REDIRECT_URL_SUCCEEDED_PREAPPROVAL = "http://localhost:8080/html/parent/index.html?preapprovalSuccessful=true";
+	private static final String REDIRECT_URL_CANCELED_PREAPPROVAL = "http://localhost:8080/html/parent/index.html";
 	private static final DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
 

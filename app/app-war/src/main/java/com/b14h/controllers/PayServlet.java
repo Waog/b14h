@@ -27,8 +27,6 @@ public class PayServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		resp.getWriter().write("hello payment!");
-		
 		PayService.pay();
 		
 		resp.getWriter().write("payment executed!");
